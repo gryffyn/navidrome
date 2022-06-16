@@ -32,6 +32,8 @@ import { AlbumLinkField } from '../song/AlbumLinkField'
 import { playTracks } from '../actions'
 import PlaylistSongBulkActions from './PlaylistSongBulkActions'
 import ExpandInfoDialog from '../dialogs/ExpandInfoDialog'
+import config from '../config'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -205,9 +207,18 @@ const PlaylistSongs = ({ playlistId, readOnly, actions, ...props }) => {
             >
               {columns}
               <SongContextMenu
+                source={'starred'}
+                sortable={false}
                 onAddToPlaylist={onAddToPlaylist}
-                showLove={false}
                 className={classes.contextMenu}
+                label={
+                  config.enableFavourites && (
+                    <FavoriteBorderIcon
+                      fontSize={'small'}
+                      className={classes.columnIcon}
+                    />
+                  )
+                }
               />
             </SongDatagrid>
           </ReorderableList>
